@@ -95,5 +95,4 @@ class RheostatExample extends Component {
 }
 RheostatExample.defaultProps = defaultProps
 
-
-AppRegistry.registerComponent('Example', () => RheostatExample);
+AppRegistry.registerComponent("Example", () => RheostatExample);
