@@ -21,15 +21,16 @@ class DefaultBarChart extends React.PureComponent {
         const {
             data,
             chartProps,
-            theme,
+            chartColor,
+            backgroundColor,
             style
         } = this.props
 
         const Gradient = ({ index }) => (
             <Defs key={'gradient-defs'}>
                 <LinearGradient id={'gradient'} x1={'0%'} y={'0%'} x2={'0%'} y2={'100%'}>
-                    <Stop offset={'0%'} stopColor={theme.themeColor} stopOpacity={0.5}/>
-                    <Stop offset={'100%'} stopColor={theme.themeColor} stopOpacity={1}/>
+                    <Stop offset={'0%'} stopColor={chartColor} stopOpacity={0.5}/>
+                    <Stop offset={'100%'} stopColor={chartColor} stopOpacity={1}/>
                 </LinearGradient>
             </Defs>
         )
@@ -61,17 +62,19 @@ class DefaultBarChart extends React.PureComponent {
                     style={{height: '100%'}}
                     data={data}
                     svg={{
-                        fill: theme.grey,
+                        fill: backgroundColor,
                         strokeWidth: 0
                     }}
                     {...chartProps}
                 />
-                <Animated.View style={{ ...StyleSheet.absoluteFillObject, width: diffValue, height: '100%',transform: [{translateX: prevPos}], overflow: 'hidden'}}>
+                <Animated.View style={{ ...StyleSheet.absoluteFillObject,
+                    width: diffValue, height: '100%',
+                    transform: [{translateX: prevPos}], overflow: 'hidden'}}>
                     <AnimatedBarChart
                         style={{ transform: [{translateX: prevValue}], height: '100%', width: width,}}
                         data={data}
                         svg={{
-                            fill: theme.themeColor,
+                            fill: chartColor,
                         }}
                         {...chartProps}
                     >
@@ -83,16 +86,17 @@ class DefaultBarChart extends React.PureComponent {
     }
 }
 
-DefaultBarChart.defaultProps = defaultProps;
+// DefaultBarChart.defaultProps = defaultProps;
 
 const DefaultStyledBarChart = styled(DefaultBarChart).attrs({
-    theme:  props => props.theme
+    chartColor:  props => props.theme.themeColor,
+    backgroundColor: props => props.theme.grey
 })`
    height: 100px;
 `
 DefaultStyledBarChart.defaultProps = {
     chartProps: {
-       contentInset: {top: 10, bottom: 0,},
+        contentInset: {top: 10, bottom: 0,},
     },
     theme: {
         themeColor: 'palevioletred',

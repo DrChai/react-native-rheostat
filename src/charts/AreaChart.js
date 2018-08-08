@@ -25,15 +25,16 @@ class DefaultAreaChart extends React.PureComponent {
         const {
             data,
             chartProps,
-            theme,
+            chartColor,
+            backgroundColor,
             style
         } = this.props
 
         const Gradient = ({ index }) => (
             <Defs key={'gradient-defs'}>
                 <LinearGradient id={'gradient'} x1={'0%'} y={'0%'} x2={'0%'} y2={'100%'}>
-                    <Stop offset={'0%'} stopColor={theme.themeColor} stopOpacity={0.5}/>
-                    <Stop offset={'100%'} stopColor={theme.themeColor} stopOpacity={1}/>
+                    <Stop offset={'0%'} stopColor={chartColor} stopOpacity={0.5}/>
+                    <Stop offset={'100%'} stopColor={chartColor} stopOpacity={1}/>
                 </LinearGradient>
             </Defs>
         )
@@ -67,11 +68,13 @@ class DefaultAreaChart extends React.PureComponent {
             <AreaChart
                 style={{ height: '100%'}}
                 data={data}
-                svg={{ fill: theme.grey,
+                svg={{ fill: backgroundColor,
                 }}
                 {...chartProps}
             />
-           <Animated.View style={{ ...StyleSheet.absoluteFillObject, width: diffValue, height: '100%',transform: [{translateX: prevPos}], overflow: 'hidden'}}>
+           <Animated.View style={{ ...StyleSheet.absoluteFillObject,
+               width: diffValue, height: '100%',
+               transform: [{translateX: prevPos}], overflow: 'hidden'}}>
                <AnimatedAreaChart
                    style={{ transform: [{translateX: prevValue}], height: '100%', width: width,}}
                    data={data}
@@ -91,7 +94,8 @@ class DefaultAreaChart extends React.PureComponent {
 // DefaultAreaChart.defaultProps = defaultProps;
 
 const DefaultStyledAreaChart = styled(DefaultAreaChart).attrs({
-    theme:  props => props.theme
+    chartColor:  props => props.theme.themeColor,
+    backgroundColor: props => props.theme.grey
 })`
    height: 100px;
 `
@@ -108,7 +112,8 @@ DefaultStyledAreaChart.defaultProps = {
 export default DefaultStyledAreaChart
 
 /*
-*   Crash when using with Animated
+* NOQA
+* Crash when using with Animated, with current react-native-svg
 *  const Clips = ({x, width}) => {
               const {
                     handlePos

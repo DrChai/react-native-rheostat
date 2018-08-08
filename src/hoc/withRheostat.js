@@ -22,7 +22,6 @@ import DefaultHandler from "../components/DefaultHandler";
 const AnimatedRect = Animated.createAnimatedComponent(Rect);
 const PropTypeArrOfNumber = PropTypes.arrayOf(PropTypes.number);
 
-
 const withRheostat = (ChartCompo=null) => {
 
     class Rheostat extends React.PureComponent {
@@ -47,7 +46,7 @@ const withRheostat = (ChartCompo=null) => {
             snap: false,
             snapPoints: [],
             getNextHandlePosition: null,
-
+            theme: undefined
         }
         constructor(props) {
             super(props);
@@ -280,19 +279,22 @@ const withRheostat = (ChartCompo=null) => {
                 pitComponent: PitComponent,
                 pitPoints,
                 progressBar: ProgressBar,
-                svgData
+                svgData,
+                theme
             } = this.props;
             const {
                 handlePos,
                 containerSize,
             } = this.state
+            const extraProps = {
 
+            }
             return (
                 <View style={[{
                     marginTop: 30,
                     marginHorizontal: 10, position: 'relative',
                 },]}>
-                    {ChartCompo&&<ChartCompo handlePos={handlePos} data={svgData} width={this.state.containerSize.width}/>}
+                    {ChartCompo&&<ChartCompo theme={theme} handlePos={handlePos} data={svgData} width={this.state.containerSize.width}/>}
                     <View
                         onLayout={this.getRheostatDimensions}
                         style={[Style.container, orientation === 'horizontal' && Style.rheostatHorizontal]}
@@ -313,8 +315,9 @@ const withRheostat = (ChartCompo=null) => {
                                                renderToHardwareTextureAndroid
                                                key={`handle-${idx}`}
                                 >
-                                    <Handle style={[Style.handle,]}
-                                    /></Animated.View>
+                                    <Handle style={[Style.handle,]} theme={theme}
+                                    />
+                                </Animated.View>
                             );
                         })}
                         {handlePos.map((value, idx, arr) => {
@@ -326,7 +329,7 @@ const withRheostat = (ChartCompo=null) => {
                                     key={`progress-bar-${idx}`}
                                     renderToHardwareTextureAndroid
                                     style={[{position: 'absolute', height: 'auto'}, this.getProgressStyle(idx)]}>
-                                    <ProgressBar/>
+                                    <ProgressBar theme={theme}/>
                                 </Animated.View>
                             );
                         })}

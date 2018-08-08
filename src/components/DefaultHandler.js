@@ -10,6 +10,13 @@ const RoundedButtonText = styled.Text.attrs({
    font-weight: 700;
 `
 
+RoundedButtonText.defaultProps = {
+    theme: {
+        themeColor: 'palevioletred',
+        grey: '#d8d8d8'
+    }
+}
+
 const RoundedButton = ({style, selected, children, ...props}) => (
     <TouchableHighlight style={style} {...props} underlayColor='rgba(245,219,227,0.8)'>
         <RoundedButtonText selected={selected} >

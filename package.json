@@ -1,6 +1,6 @@
 {
   "name": "react-native-rheostat",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "inspired by Airbnb's rheostat, a powerful slider with assorted data visualized charts ",
   "main": "src/index.js",
   "scripts": {
@@ -28,6 +28,9 @@
   "homepage": "https://github.com/DrChai/react-native-rheostat#readme",
   "dependencies": {
     "d3-shape": "^1.2.0",
+    "react-native-svg-charts": "^5.2.0",
+    "styled-components": "^3.4.1",
+    "react-native-svg": "^6.5.2",
     "prop-types": "^15.6.2"
   },
   "devDependencies": {
