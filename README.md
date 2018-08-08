@@ -1,14 +1,60 @@
-# react-native-rheostat
-inspired by Airbnb's rheostat, a powerful slider with assorted data visualized charts
+# react-native-rheostat 
+### current beta
+inspired by Airbnb's [rheostat](https://github.com/airbnb/rheostat), a powerful slider with assorted data visualized charts
 
+- [Features](#features)
+- [Dependencies](#dependencies)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Examples](#examples)
+- [Advances](#advances)
 
+### Features
+- Followed original repo [rheostat](https://github.com/airbnb/rheostat) to provide similar usage, 
+includes algorithm and custom React component overrides for handles and progress bar.
+- Pure Javascript but optimized with Animated API, reduced times of re-render and data pass over the bridge.
+- Provide HOC wrapper `withRheostat` to allow you fully customize.
+- Built with styled-components, easily add your theme and styles.
+### Dependencies
+
+This library uses [react-native-svg](https://github.com/react-native-community/react-native-svg) and [react-native-svg-charts](https://raw.githubusercontent.com/JesperLekland/react-native-svg-charts)
+for optional charts display. If you develop with native code,you need to run `react-native link react-native-svg` 
+to link your native code, please see the Installation below
 ### Installation
 `npm install --save react-native-rheostat`
 
+link native code, with Expo or create-react-native-app, just skip this:
+
+`react-native link react-native-svg`
+
 ### Usage
+
+#### classic slider
+**ranged slider with snap points**
+```javascript
+const values = [480,1040]
+<Rheostat values={values} min={0} max={1440}
+                          snapPoints={this.props.snapPoints}
+                          snap={true}
+                />
+```
+**single handle slider**
+```javascript
+const values = [480,]
+<Rheostat values={values} min={0} max={1440} />
+```
+#### x-like slider with areaChart or barChart
+**rheostat with areaChart**
+```javascript
+const areaSvgData = [ 50, 10, 40, 85, 85, 91, 35,  53, 24]
+<AreaRheostat values={values} min={0} max={1440} svgData = {areaSvgData}/>
+```
+**rheostat with barChart**
+```javascript
+const barSvgData = [ 50, 10, 40, 85, 85, 91, 35,  53, 24]
+<BarRheostat values={values} min={0} max={1440} svgData = {areaSvgData}/>
+```
+#### full example
 ```javascript
 import Rheostat, {AreaRheostat, BarRheostat} from "react-native-rheostat";
 
@@ -75,5 +121,15 @@ class RheostatExample extends Component {
 }
 RheostatExample.defaultProps = defaultProps
 ```
+
 ### Examples
-*TODO*
+```
+cd example
+npm i
+react-native link react-native-svg  
+react-native run-ios
+```
+
+### Advances
+
+**TODO**

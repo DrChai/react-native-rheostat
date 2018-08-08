@@ -1,5 +1,10 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 build/
+# Android/IntelliJ
+.gradle
+local.properties
+*.iml
+
 # Logs
 logs
 *.log
