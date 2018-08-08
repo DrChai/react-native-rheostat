@@ -1,6 +1,6 @@
 {
   "name": "react-native-rheostat",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "inspired by Airbnb's rheostat, a powerful slider with assorted data visualized charts ",
   "main": "src/index.js",
   "scripts": {
