@@ -9,8 +9,6 @@ import styled from "styled-components";
 import * as shape from 'd3-shape'
 import { ClipPath, Defs, LinearGradient, Stop, Rect} from 'react-native-svg'
 import { AreaChart } from 'react-native-svg-charts'
-import DefaultHandler from "../components/DefaultHandler";
-
 
 // const defaultProps = {
 //     chartProps: {

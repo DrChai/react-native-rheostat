@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
     View,
     StyleSheet,
@@ -12,14 +12,11 @@ import {
     PERCENT_FULL,
     PERCENT_EMPTY,
 } from "../constants/SliderConstants";
-import Svg, {ClipPath, Defs, Rect} from 'react-native-svg';
-import { AreaChart } from 'react-native-svg-charts';
-import * as shape from 'd3-shape';
+import {ClipPath, Defs, Rect} from 'react-native-svg';
 import DefaultProgressBar from "../components/DefaultProgressBar";
 import linear from "../algorithms/linear";
 import DefaultHandler from "../components/DefaultHandler";
 
-const AnimatedRect = Animated.createAnimatedComponent(Rect);
 const PropTypeArrOfNumber = PropTypes.arrayOf(PropTypes.number);
 
 const withRheostat = (ChartCompo=null) => {

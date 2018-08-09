@@ -1,6 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-import DefaultHandler from "./DefaultHandler";
+import styled from "styled-components";\
 
 const DefaultProgressBar = styled.View`
    background-color: ${props =>  props.theme.themeColor};
