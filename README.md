@@ -31,6 +31,9 @@ link native code, with Expo or create-react-native-app, just skip this:
 
 #### classic slider
 **ranged slider with snap points**
+
+![](https://raw.githubusercontent.com/DrChai/react-native-rheostat/master/example/screenshots/twoHandles.gif)
+
 ```javascript
 const demoTwoValues = [20,50]
 const demoSnaps = [0,20,30,40,50,60,70,80,100];
@@ -39,24 +42,34 @@ const demoSnaps = [0,20,30,40,50,60,70,80,100];
 
 ```
 **single handle slider**
+
+![](https://raw.githubusercontent.com/DrChai/react-native-rheostat/master/example/screenshots/singleHandle.gif)
+
 ```javascript
 const singleValues = [33];
 <Rheostat values={singleValues} min={0} max={100} />
 ```
 #### x-like slider with areaChart or barChart
 **rheostat with areaChart**
+
+![](https://raw.githubusercontent.com/DrChai/react-native-rheostat/master/example/screenshots/areaChartTwoHandles.gif)
 ```javascript
 const areaSvgData = [ 50, 10, 40, 85, 85, 91, 35,  53, 24]
 const demoTwoValues = [480, 1040]
 <AreaRheostat values={values} min={0} max={1440} svgData={areaSvgData}/>
 ```
 **rheostat with barChart**
+
+![](https://raw.githubusercontent.com/DrChai/react-native-rheostat/master/example/screenshots/barChartTwoHandles.gif)
 ```javascript
 const demoTwoValues = [3, 9]
 const barSvgData = [  50, 10, 40, 85, 85, 91, 35,  53, 24]
 <BarRheostat values={values} min={0} max={1440} svgData={areaSvgData}/>
 ```
 #### full component and event listeners binding
+
+![](https://raw.githubusercontent.com/DrChai/react-native-rheostat/master/example/screenshots/fullExampleComp.gif)
+
 ```javascript
 import React, {Component} from 'react';
 import {Text, View, ScrollView} from 'react-native';
@@ -134,6 +147,9 @@ export default class RheostatExample extends Component {
 RheostatExample.defaultProps = defaultProps;
 ```
 #### change appearance with styled-components
+
+![](https://raw.githubusercontent.com/DrChai/react-native-rheostat/master/example/screenshots/styledComp.gif)
+
 ```javascript
 import {ThemeProvider} from 'styled-components'
 const theme = {
