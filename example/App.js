@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, ScrollView} from 'react-native';
+import {Text, View, ScrollView} from 'react-native';
 import Moment from 'moment';
 import {name as appName} from './app.json';
 import {ThemeProvider} from 'styled-components'
@@ -15,8 +15,7 @@ import Rheostat, {AreaRheostat, BarRheostat} from "react-native-rheostat";
 
 const areaSvgData = [ 50, 10, 40, 85, 85, 91, 35,  53, 24,
     50, 10, 40, 95, 85, 40,
-    24, ]
-const singleValues = [330];
+    24]
 const defaultProps = {
     snapPoints: [0,60,120,180,240,300,330,360,420,480,540,570,600,630,660,690,
         720,750,780,810,840,870,900,930,960,990,1020,1050,1080,1110,1140,1170,1200,
@@ -47,7 +46,6 @@ export default class RheostatExample extends Component {
             }
         }
     }
-
     onRheostatValUpdated = (payload) => {
         this.setState({
             timeRange: payload
@@ -63,7 +61,6 @@ export default class RheostatExample extends Component {
         return (
             <ScrollView contentContainerStyle={{paddingTop: 20, paddingHorizontal:15}} scrollEnabled={this.state.scrollEnabled}>
                     <Text style={{fontWeight:'800'}}>Example</Text>
-
                     <View style={{flex:1, paddingTop: 20, paddingBottom: 80}}>
                         <Text style={{marginTop: 15}}>
                                 {Moment.utc().startOf('day').add(this.state.timeRange.values[0], 'minutes').format('hh:mm A')}
