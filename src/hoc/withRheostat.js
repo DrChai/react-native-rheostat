@@ -413,6 +413,7 @@ let Style = StyleSheet.create({
         width: 30,
         height: 30,
         marginLeft: -15,
+        bottom: -15,
     },
     container: {
         justifyContent: 'center'
