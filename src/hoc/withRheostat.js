@@ -292,31 +292,31 @@ const withRheostat = (ChartCompo=null) => {
                     marginHorizontal: 10, position: 'relative',
                 },]}>
                     {ChartCompo&&<ChartCompo theme={theme} handlePos={handlePos} data={svgData} width={this.state.containerSize.width}/>}
+                    {handlePos.map((value, idx) => {
+                        const pos = value.interpolate({
+                            inputRange: [0, 100],
+                            outputRange: [0, containerSize.width],
+                        }, {useNativeDriver: true});
+                        const handleStyle = orientation === 'vertical'
+                            ? {transform: [{translateY: pos},]}
+                            : {transform: [{translateX: pos},]};
+                        return (
+                            <Animated.View style={[Style.handleContainer, handleStyle]}
+                                           {...this._panResponders[idx].panHandlers}
+                                           onLayout={this.getHandleDimensions}
+                                           renderToHardwareTextureAndroid
+                                           key={`handle-${idx}`}
+                            >
+                                <Handle style={[Style.handle,]} theme={theme}
+                                />
+                            </Animated.View>
+                        );
+                    })}
                     <View
                         onLayout={this.getRheostatDimensions}
                         style={[Style.container, orientation === 'horizontal' && Style.rheostatHorizontal]}
                     >
                         <View style={[Style.rheostatBackground, Style.rheostatHorizontalBackground]}/>
-                        {handlePos.map((value, idx) => {
-                            const pos = value.interpolate({
-                                inputRange: [0, 100],
-                                outputRange: [0, containerSize.width],
-                            }, {useNativeDriver: true});
-                            const handleStyle = orientation === 'vertical'
-                                ? {transform: [{translateY: pos},]}
-                                : {transform: [{translateX: pos},]};
-                            return (
-                                <Animated.View style={[Style.handleContainer, handleStyle]}
-                                               {...this._panResponders[idx].panHandlers}
-                                               onLayout={this.getHandleDimensions}
-                                               renderToHardwareTextureAndroid
-                                               key={`handle-${idx}`}
-                                >
-                                    <Handle style={[Style.handle,]} theme={theme}
-                                    />
-                                </Animated.View>
-                            );
-                        })}
                         {handlePos.map((value, idx, arr) => {
                             if (idx === 0 && arr.length > 1) {
                                 return null;
@@ -404,13 +404,15 @@ let Style = StyleSheet.create({
     },
     handle: {
         backgroundColor: 'white',
-        width: 30,
-        height: 30,
-        marginLeft: -15,
+        width: '100%',
+        height: '100%',
     },
     handleContainer: {
         zIndex: 3,
         position: 'absolute',
+        width: 30,
+        height: 30,
+        marginLeft: -15,
     },
     container: {
         justifyContent: 'center'

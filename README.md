@@ -1,5 +1,5 @@
 # react-native-rheostat 
-### current beta
+
 inspired by Airbnb's [rheostat](https://github.com/airbnb/rheostat), a powerful slider with assorted data visualized charts
 
 - [Features](#features)
