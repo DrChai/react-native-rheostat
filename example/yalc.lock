@@ -1,9 +1,0 @@
-{
-  "version": "v1",
-  "packages": {
-    "react-native-rheostat": {
-      "signature": "c9e9c68411ca96b1eccd2532130a0436",
-      "file": true
-    }
-  }
-}

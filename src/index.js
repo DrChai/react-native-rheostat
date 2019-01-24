@@ -15,4 +15,5 @@ export {
   AreaRheostat,
   BarRheostat,
   RheostatThemeProvider,
+  withRheostat,
 };

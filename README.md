@@ -186,4 +186,21 @@ react-native run-ios
 
 ### Advances
 
-**TODO**
+You can pass your own customized chart component to the `withRheostat` higher order component.
+```javascript
+import { withRheostat } from 'react-native-rheostat';
+import AreaChart from 'react-native-rheostat/src/charts/AreaChart'
+import {
+    Defs, LinearGradient, Stop,
+} from 'react-native-svg';
+
+const CustomAreaChart = (props) => (<AreaChart chartColor='url(#gradient)' {...props} >
+    <Defs key='gredient-refs'>
+        <LinearGradient id="gradient" x1="0%" y="0%" x2="0%" y2="100%">
+            <Stop offset="50%" stopColor='green' stopOpacity={0.5} />
+            <Stop offset="100%" stopColor='green' stopOpacity={1} />
+        </LinearGradient>
+    </Defs>
+</AreaChart>)
+const CustomAreaRheostat= withRheostat(CustomAreaChart)
+```

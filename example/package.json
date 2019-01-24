@@ -10,7 +10,7 @@
     "moment": "^2.22.2",
     "react": "^16.7.0",
     "react-native": "^0.57.8",
-    "react-native-rheostat": "file:.yalc/react-native-rheostat",
+    "react-native-rheostat": "^0.1.0",
     "react-native-svg": "^6.5.2"
   },
   "devDependencies": {

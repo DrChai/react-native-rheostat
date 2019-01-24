@@ -7,19 +7,23 @@ import {
 } from 'react-native';
 import styled from 'styled-components/native';
 import * as shape from 'd3-shape';
-import {
-  Defs, LinearGradient, Stop,
-} from 'react-native-svg';
+
 import { AreaChart } from 'react-native-svg-charts';
 
-// const defaultProps = {
-//     chartProps: {
-//         contentInset: {top: 10, bottom: 0 },
-//         curve: shape.curveNatural,
-//     },
-// };
+
+// const Gradient = ({ index, chartColor }) => (
+//     <Defs key={index}>
+//       <LinearGradient id="gradient" x1="0%" y="0%" x2="0%" y2="100%">
+//         <Stop offset="0%" stopColor={chartColor} stopOpacity={0.5} />
+//         <Stop offset="100%" stopColor={chartColor} stopOpacity={1} />
+//       </LinearGradient>
+//     </Defs>
+// );
+
 
 const AnimatedAreaChart = Animated.createAnimatedComponent(AreaChart);
+
+
 class DefaultAreaChart extends React.PureComponent {
   render() {
     const {
@@ -28,17 +32,8 @@ class DefaultAreaChart extends React.PureComponent {
       chartColor,
       backgroundColor,
       style,
+      children,
     } = this.props;
-
-    const Gradient = ({ index }) => (
-      <Defs key={index}>
-        <LinearGradient id="gradient" x1="0%" y="0%" x2="0%" y2="100%">
-          <Stop offset="0%" stopColor={chartColor} stopOpacity={0.5} />
-          <Stop offset="100%" stopColor={chartColor} stopOpacity={1} />
-        </LinearGradient>
-      </Defs>
-    );
-
 
     const {
       handlePos, width,
@@ -85,7 +80,9 @@ class DefaultAreaChart extends React.PureComponent {
               fill: chartColor,
             }}
             {...chartProps}
-          />
+          >
+            {children}
+          </AnimatedAreaChart>
         </Animated.View>
       </View>
     );
@@ -105,6 +102,7 @@ DefaultStyledAreaChart.defaultProps = {
     contentInset: { top: 10, bottom: 0 },
     curve: shape.curveNatural,
   },
+  children: null,
 };
 export default DefaultStyledAreaChart;
 

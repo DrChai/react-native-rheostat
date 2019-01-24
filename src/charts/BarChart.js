@@ -5,7 +5,6 @@ import {
   View,
 } from 'react-native';
 import styled from 'styled-components/native';
-import { Defs, LinearGradient, Stop } from 'react-native-svg';
 import BarChart from 'react-native-svg-charts/src/bar-chart/bar-chart';
 
 // const defaultProps = {
@@ -24,16 +23,8 @@ class DefaultBarChart extends React.PureComponent {
       chartColor,
       backgroundColor,
       style,
+      children,
     } = this.props;
-
-    const Gradient = ({ index }) => (
-      <Defs key={index}>
-        <LinearGradient id="gradient" x1="0%" y="0%" x2="0%" y2="100%">
-          <Stop offset="0%" stopColor={chartColor} stopOpacity={0.5} />
-          <Stop offset="100%" stopColor={chartColor} stopOpacity={1} />
-        </LinearGradient>
-      </Defs>
-    );
 
     const {
       handlePos, width,
@@ -82,14 +73,14 @@ class DefaultBarChart extends React.PureComponent {
               fill: chartColor,
             }}
             {...chartProps}
-          />
+          >
+            {children}
+          </AnimatedBarChart>
         </Animated.View>
       </View>
     );
   }
 }
-
-// DefaultBarChart.defaultProps = defaultProps;
 
 const DefaultStyledBarChart = styled(DefaultBarChart).attrs(props => ({
   chartColor: (props.theme.rheostat && props.theme.rheostat.themeColor) || 'palevioletred',
@@ -101,5 +92,6 @@ DefaultStyledBarChart.defaultProps = {
   chartProps: {
     contentInset: { top: 10, bottom: 0 },
   },
+  children: null,
 };
 export default DefaultStyledBarChart;
