@@ -64,8 +64,6 @@ const withRheostat = (ChartCompo = null) => {
         handlePos: values.map(value => new Animated.Value(
           algorithm.getPosition(value, min, max),
         )),
-        event: {},
-        x: 0,
       };
       this.getPublicState = this.getPublicState.bind(this);
       this.getProgressStyle = this.getProgressStyle.bind(this);
@@ -253,8 +251,6 @@ const withRheostat = (ChartCompo = null) => {
     }
 
     handleClick(evt) {
-      // const x = evt.nativeEvent.locationX;
-      // this.setState({ event: evt, x: x });
       if (evt.nativeEvent.locationX === null) return;
       let idx = 0;
       const { handlePos, containerSize: { width } } = this.state;
@@ -325,12 +321,13 @@ const withRheostat = (ChartCompo = null) => {
 
       return (
         <TouchableOpacity onPress={this.handleClick}>
-          <View style={[{
-            marginTop: 30,
-            marginHorizontal: 10,
-            position: 'relative',
-            marginBottom: 20,
-          }]}
+          <View
+            style={[{
+              marginTop: 30,
+              marginHorizontal: 10,
+              position: 'relative',
+              marginBottom: 20,
+            }]}
           >
             {ChartCompo && (
             <ChartCompo
