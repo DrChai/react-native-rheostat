@@ -320,7 +320,7 @@ const withRheostat = (ChartCompo = null) => {
       } = this.state;
 
       return (
-        <TouchableOpacity onPress={this.handleClick}>
+        <TouchableOpacity onPressIn={this.handleClick}>
           <View
             style={[{
               marginTop: 30,
