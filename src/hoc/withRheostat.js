@@ -320,7 +320,7 @@ const withRheostat = (ChartCompo = null) => {
       } = this.state;
 
       return (
-        <TouchableOpacity onPressIn={this.handleClick}>
+        <TouchableOpacity activeOpacity={1} onPressIn={this.handleClick}>
           <View
             style={[{
               marginTop: 30,
@@ -375,7 +375,9 @@ const withRheostat = (ChartCompo = null) => {
                     renderToHardwareTextureAndroid
                     style={[{ position: 'absolute', height: 'auto' }, this.getProgressStyle(idx)]}
                   >
-                    <ProgressBar theme={theme} />
+                    <TouchableOpacity activeOpacity={1}>
+                      <ProgressBar theme={theme} />
+                    </TouchableOpacity>
                   </Animated.View>
                 );
               })}
