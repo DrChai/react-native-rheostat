@@ -92,8 +92,8 @@ class DefaultAreaChart extends React.PureComponent {
 // DefaultAreaChart.defaultProps = defaultProps;
 
 const DefaultStyledAreaChart = styled(DefaultAreaChart).attrs(props => ({
-  chartColor: (props.theme.rheostat && props.theme.rheostat.themeColor) || 'palevioletred',
-  backgroundColor: (props.theme.rheostat && props.theme.rheostat.grey) || '#d8d8d8',
+  chartColor: (props.theme.rheostat?.themeColor) || 'palevioletred',
+  backgroundColor: (props.theme.rheostat?.grey) || '#d8d8d8',
 }))`
    height: 100px;
 `;

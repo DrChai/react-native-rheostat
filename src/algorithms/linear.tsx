@@ -1,9 +1,9 @@
 export default {
-  getPosition(value, min, max) {
+  getPosition(value:number, min:number, max:number):number {
     return ((value - min) / (max - min)) * 100;
   },
 
-  getValue(pos, min, max) {
+  getValue(pos:number, min:number, max:number):number {
     const decimal = pos / 100;
 
     if (pos === 0) {
