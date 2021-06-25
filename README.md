@@ -147,8 +147,33 @@ export default class RheostatExample extends Component {
 RheostatExample.defaultProps = defaultProps;
 ```
 #### change appearance with styled-components
-
-As recommended by [Shared Component Libraries](https://github.com/styled-components/styled-components-experimentation/blob/master/component-libraries/shared-component-libraries.md), import the custom themeProvider
+Option 1) You can wrap Rheostat by `ThemeProvider` from styled-component:
+```javascript
+import { ThemeProvider } from 'styled-components/native';
+const theme = {
+    rheostat: {
+        themeColor: 'blue',
+        grey: '#fafafa',
+    }
+    //... other theme objects
+};
+<ThemeProvider theme={theme}>
+        <BarRheostat
+            values={this.props.values}
+            min={0}
+            max={1440}
+            svgData={areaSvgData}
+        />
+</ThemeProvider>
+```
+Option 2) Or just pass theme as a prop to Rheostat without import `ThemeProvider` from styled-component:
+```javascript
+  <AreaRheostat values={this.props.values} min={0} max={1440}
+                theme={{ rheostat: { themeColor: 'black', grey: '#fafafa' } }}
+                svgData = {areaSvgData}
+  />
+```
+[**Recommended**] Option 3) As recommended by [Shared Component Libraries](https://github.com/styled-components/styled-components-experimentation/blob/master/component-libraries/shared-component-libraries.md), import the custom themeProvider
 `RheostatThemeProvider` for namespacing and avoid theme variables name clashes. 
 ![](https://raw.githubusercontent.com/DrChai/react-native-rheostat/master/example/screenshots/styledComp.gif)
 

@@ -9,6 +9,7 @@ import {
 import React, {
   useEffect, useMemo, useRef, useState,
 } from 'react';
+import { DefaultTheme } from 'styled-components';
 import linear from '../algorithms/linear';
 import DefaultHandler from '../components/DefaultHandler';
 import { PERCENT_EMPTY, PERCENT_FULL, VERTICAL } from '../constants/SliderConstants';
@@ -43,10 +44,10 @@ type RheostatTypes = {
   snapPoints?: number[];
   values: number[];
   getNextHandlePosition?: null,
-  theme: undefined,
+  theme?: DefaultTheme,
   svgData?: number[],
 };
-const withRheostat = (ChartCompo: any = null) => (props: RheostatTypes) => {
+const withRheostat = (ChartCompo: any = null) => React.memo((props: RheostatTypes) => {
   const {
     progressBar: ProgressBar = DefaultProgressBar,
     handle: Handle = DefaultHandler,
@@ -61,6 +62,7 @@ const withRheostat = (ChartCompo: any = null) => (props: RheostatTypes) => {
     snapPoints,
     children = null,
     svgData,
+    theme,
   } = props;
   let previousHandlePos: number[]; // logging start coords at start of each onPanResponderGrant
   const [handlePos, setHandlePos] = useState(() => inputValues.map((value) => new Animated.Value(
@@ -74,7 +76,7 @@ const withRheostat = (ChartCompo: any = null) => (props: RheostatTypes) => {
       algorithm.getPosition(value, min, max),
     )));
     setValues(inputValues.map((value) => new Animated.Value(value)));
-  }, [inputValues[0], inputValues[1]]); // NOQA
+  }, [JSON.stringify(inputValues)]);
 
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const [handleDimensions, setHandleDimensions] = useState({ width: 0, height: 0 });
@@ -218,6 +220,7 @@ const withRheostat = (ChartCompo: any = null) => (props: RheostatTypes) => {
         handlePos={handlePos}
         data={svgData}
         width={containerSize.width}
+        theme={theme}
       />
       )}
       {handlePos.map((value, idx) => {
@@ -236,7 +239,7 @@ const withRheostat = (ChartCompo: any = null) => (props: RheostatTypes) => {
             renderToHardwareTextureAndroid
             key={`handle-${idx}`}
           >
-            <Handle style={[Style.handle]} />
+            <Handle style={[Style.handle]} theme={theme} />
           </Animated.View>
         );
       })}
@@ -255,7 +258,7 @@ const withRheostat = (ChartCompo: any = null) => (props: RheostatTypes) => {
               renderToHardwareTextureAndroid
               style={[{ position: 'absolute', height: 'auto' }, getProgressStyle(idx)]}
             >
-              <ProgressBar />
+              <ProgressBar theme={theme} />
             </Animated.View>
           );
         })}
@@ -276,7 +279,7 @@ const withRheostat = (ChartCompo: any = null) => (props: RheostatTypes) => {
       </View>
     </View>
   );
-};
+});
 
 const Style = StyleSheet.create({
 
@@ -289,7 +292,6 @@ const Style = StyleSheet.create({
     height: '100%',
   },
   handleContainer: {
-    backgroundColor: 'yellow',
     zIndex: 3,
     position: 'absolute',
     width: 30,
