@@ -15,9 +15,9 @@ import DefaultHandler from '../components/DefaultHandler';
 import { PERCENT_EMPTY, PERCENT_FULL, VERTICAL } from '../constants/SliderConstants';
 import DefaultProgressBar from '../components/DefaultProgressBar';
 
-type HandlersState = {
-  min: number;
-  max: number;
+export type HandlersState = {
+  min?: number;
+  max?: number;
   values: number[];
 };
 type RheostatTypes = {

@@ -1,4 +1,4 @@
-import withRheostat from './hoc/withRheostat';
+import withRheostat, { HandlersState } from './hoc/withRheostat';
 import AreaChart from './charts/AreaChart';
 import BarChart from './charts/BarChart';
 import RheostatThemeProvider from './theme';
@@ -15,4 +15,5 @@ export {
   BarRheostat,
   withRheostat,
   RheostatThemeProvider,
+  HandlersState,
 };
