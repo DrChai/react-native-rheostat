@@ -8,14 +8,7 @@ import { ChartProps, BarChart } from 'react-native-svg-charts';
 import { AreaChartProps } from './types';
 import styled from '../components/styled-components';
 
-// NO-QA here, BarChart is FC not accepted by Animated, then wrapped by Memo.
-// memo types is not friendly.
-const PureBarChart = React.memo(BarChart);
-const AnimatedBarChart = Animated.createAnimatedComponent(
-  PureBarChart as unknown as ComponentClass<ChartProps<number>>,
-);
-
-const DefaultBarChart = (props:AreaChartProps) => {
+const DefaultBarChart = (props: AreaChartProps) => {
   const {
     width, style, data, backgroundColor, chartColor, children, handlePos,
     contentInset = { top: 10, bottom: 0 },
@@ -60,17 +53,19 @@ const DefaultBarChart = (props:AreaChartProps) => {
         overflow: 'hidden',
       }}
       >
-        <AnimatedBarChart
-          style={{ transform: [{ translateX: prevValue }], height: '100%', width }}
-          data={data}
-          svg={{
-            fill: chartColor,
-          }}
-          contentInset={contentInset}
-          {...chartProps}
-        >
-          {children}
-        </AnimatedBarChart>
+        <Animated.View style={{ transform: [{ translateX: prevValue }] }}>
+          <BarChart
+            style={{ height: '100%', width }}
+            data={data}
+            svg={{
+              fill: chartColor,
+            }}
+            contentInset={contentInset}
+            {...chartProps}
+          >
+            {children}
+          </BarChart>
+        </Animated.View>
       </Animated.View>
     </View>
   );
