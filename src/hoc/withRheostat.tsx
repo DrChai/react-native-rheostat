@@ -63,6 +63,7 @@ const withRheostat = (ChartCompo: any = null) => React.memo((props: RheostatType
     children = null,
     svgData,
     theme,
+    ...chartProps
   } = props;
   let previousHandlePos: number[]; // logging start coords at start of each onPanResponderGrant
   const [handlePos, setHandlePos] = useState(() => inputValues.map((value) => new Animated.Value(
@@ -221,6 +222,7 @@ const withRheostat = (ChartCompo: any = null) => React.memo((props: RheostatType
         data={svgData}
         width={containerSize.width}
         theme={theme}
+        {...chartProps}
       />
       )}
       {handlePos.map((value, idx) => {
