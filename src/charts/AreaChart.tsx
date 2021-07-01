@@ -6,14 +6,14 @@ import {
 } from 'react-native';
 import { AreaChart, ChartProps } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
-import { AreaChartProps } from './types';
+import { DefaultChartProps } from './types';
 import styled from '../components/styled-components';
 
 const AnimatedAreaChart = Animated.createAnimatedComponent(
   AreaChart as ComponentClass<ChartProps<number>>,
 );
 
-const DefaultAreaChart = (props:AreaChartProps) => {
+const DefaultAreaChart = (props: DefaultChartProps) => {
   const {
     width, style, data, backgroundColor, chartColor, children, handlePos,
     curve = shape.curveNatural,
@@ -37,7 +37,6 @@ const DefaultAreaChart = (props:AreaChartProps) => {
     // extrapolate: 'clamp',
   });
   const diffValue = Animated.add(pos, prevValue);
-  // @ts-ignore
   return (
     <View style={[style]}>
       <AreaChart

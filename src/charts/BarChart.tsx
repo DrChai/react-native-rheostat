@@ -1,14 +1,14 @@
-import React, { ComponentClass } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Animated,
   View,
 } from 'react-native';
-import { ChartProps, BarChart } from 'react-native-svg-charts';
-import { AreaChartProps } from './types';
+import { BarChart } from 'react-native-svg-charts';
+import { DefaultChartProps } from './types';
 import styled from '../components/styled-components';
 
-const DefaultBarChart = (props: AreaChartProps) => {
+const DefaultBarChart = (props: DefaultChartProps) => {
   const {
     width, style, data, backgroundColor, chartColor, children, handlePos,
     contentInset = { top: 10, bottom: 0 },
@@ -32,7 +32,6 @@ const DefaultBarChart = (props: AreaChartProps) => {
     // extrapolate: 'clamp',
   });
   const diffValue = Animated.add(pos, prevValue);
-  // @ts-ignore
   return (
     <View style={[style]}>
       <BarChart

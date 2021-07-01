@@ -4,7 +4,7 @@ import { Animated } from 'react-native';
 
 type BaseChartProps = Omit<ChartProps<number>, 'svg'>;
 
-export type AreaChartProps = BaseChartProps & {
+export type DefaultChartProps = BaseChartProps & {
   width: number;
   backgroundColor?: string;
   chartColor?: string;

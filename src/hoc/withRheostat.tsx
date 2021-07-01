@@ -6,13 +6,11 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import React, {
-  useEffect, useMemo, useRef, useState,
-} from 'react';
-import { DefaultTheme } from 'styled-components';
+import React, {useEffect, useMemo, useRef, useState,} from 'react';
+import {DefaultTheme} from 'styled-components';
 import linear from '../algorithms/linear';
 import DefaultHandler from '../components/DefaultHandler';
-import { PERCENT_EMPTY, PERCENT_FULL, VERTICAL } from '../constants/SliderConstants';
+import {PERCENT_EMPTY, PERCENT_FULL, VERTICAL} from '../constants/SliderConstants';
 import DefaultProgressBar from '../components/DefaultProgressBar';
 
 export type HandlersState = {
@@ -80,6 +78,9 @@ const withRheostat = (ChartCompo: any = null) => React.memo((props: RheostatType
 
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const [handleDimensions, setHandleDimensions] = useState({ width: 0, height: 0 });
+  const handlePercentage = orientation === VERTICAL
+    ? ((handleDimensions.width / containerSize.height) * PERCENT_FULL) / 2
+    : ((handleDimensions.width / containerSize.width) * PERCENT_FULL) / 2;
   const customPanResponder = (idx: number, start: () => void,
     move: (idx: number, gestureState: PanResponderGestureState) => void,
     end: () => void) => PanResponder.create({
@@ -99,17 +100,25 @@ const withRheostat = (ChartCompo: any = null) => React.memo((props: RheostatType
     min,
     values: values.map((value) => (value as any).__getValue()),
   });
-  const getClosestSnapPoint = (value: number) => {
+  const getClosestSnapPoint = (value: number, idx: number) => {
     if (!snapPoints?.length) return value;
-
-    return snapPoints.reduce((snapTo, snapP) => (
+    let validatedSnapPoints = snapPoints;
+    const offsetSnap = algorithm.getValue(handlePercentage, min, max);
+    if (handlePos[idx + 1] !== undefined) {
+      const maxSnap = (values[idx + 1] as any).__getValue();
+      validatedSnapPoints = snapPoints.filter((snapP) => snapP < maxSnap - offsetSnap);
+    } else if (handlePos[idx - 1] !== undefined) {
+      const minSnap = (values[idx - 1] as any).__getValue();
+      validatedSnapPoints = snapPoints.filter((snapP) => snapP > minSnap + offsetSnap);
+    }
+    return validatedSnapPoints.reduce((snapTo, snapP) => (
       Math.abs(snapTo - value) < Math.abs(snapP - value) ? snapTo : snapP
     ));
   };
-  const getSnapPosition = (positionPercent: number) => {
+  const getSnapPosition = (positionPercent: number, idx: number) => {
     if (!snap) return positionPercent;
     const value = algorithm.getValue(positionPercent, min, max);
-    const snapValue = getClosestSnapPoint(value);
+    const snapValue = getClosestSnapPoint(value, idx);
     return algorithm.getPosition(snapValue, min, max);
   };
   const startSlide = () => {
@@ -120,14 +129,9 @@ const withRheostat = (ChartCompo: any = null) => React.memo((props: RheostatType
     previousHandlePos = handlePos.map((value) => (value as any).__getValue());
   };
   const validatePosition = (idx: number, proposedPosition: number) => {
-    const nextPosition = proposedPosition;
-    const handlePercentage = orientation === VERTICAL
-      ? ((handleDimensions.width / containerSize.height) * PERCENT_FULL) / 2
-      : ((handleDimensions.width / containerSize.width) * PERCENT_FULL) / 2;
-      // nextPosition should be handlePos[idx-1] < nextPosition < handlePos[idx+1]
     return Math.max(
       Math.min(
-        nextPosition,
+        proposedPosition,
         handlePos[idx + 1] !== undefined
           ? (handlePos[idx + 1] as any).__getValue() - handlePercentage
           : PERCENT_FULL, // 100% is the highest value
@@ -159,7 +163,7 @@ const withRheostat = (ChartCompo: any = null) => React.memo((props: RheostatType
       width,
     } = containerSize;
     const proposedPosition = (gestureState.dx / width) * PERCENT_FULL + previousHandlePos[idx];
-    const snapPosition = getSnapPosition(proposedPosition);
+    const snapPosition = getSnapPosition(proposedPosition, idx);
     getNextState(idx, snapPosition);
     if (onValuesUpdated) onValuesUpdated(getPublicState());
   };
