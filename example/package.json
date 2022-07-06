@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "react": "17.0.1",
     "react-native": "0.64.2",
     "react-native-rheostat": "^1.0.1",
